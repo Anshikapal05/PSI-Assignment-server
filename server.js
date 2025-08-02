@@ -6,7 +6,11 @@ require("dotenv").config();
 
 const app = express();  //created app using express
 
-app.use(cors());
+app.use(cors({
+  origin: "https://psi-assignment-client.vercel.app", // frontend URL
+  credentials: true,
+}));
+
 app.use(express.json());        //for parsing json data
 
 const path = require("path");
