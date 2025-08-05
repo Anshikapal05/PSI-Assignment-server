@@ -20,14 +20,6 @@ const upload = multer({ storage, fileFilter, limits: { files: 3 } });
 router.use(authMiddleware);
 
 router.get("/", getTasks);
-// router.get("/", async (req, res) => {
-//   try {
-//     const tasks = await Task.find({ assignedTo: req.user._id }).sort({ createdAt: -1 });
-//     res.status(200).json(tasks);
-//   } catch (err) {
-//     res.status(500).json({ error: "Something went wrong" });
-//   }
-// });
 router.post("/", upload.array("documents", 3), createTask);
 router.put("/:id", updateTask);
 router.delete("/:id", deleteTask);

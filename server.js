@@ -3,25 +3,26 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
-
-const app = express();  //created app using express
+const app = express();
 
 app.use(cors({
-  origin: "https://psi-assignment-client.vercel.app", // frontend URL
-  credentials: true,
+  origin: "https://psi-assignment-client.vercel.app", 
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
 }));
 
-app.use(express.json());        //for parsing json data
+app.options("*", cors());
+
+app.use(express.json());
 
 const path = require("path");
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
 
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/tasks", require("./routes/taskRoutes"));
-
 
 const PORT = process.env.PORT || 5000;
 
